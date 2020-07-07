@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+import View.CommandLine;
+
 
 public class CarDataManager {
 	
@@ -39,11 +41,12 @@ public class CarDataManager {
 			
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Exception while writing to file");
+			CommandLine.instance().printError("Exception while writing to file");
 			writeCarResult = false;
 		}
 		return addCarResult && writeCarResult;
 	}
+	
 		@SuppressWarnings("unchecked") // for casting
 		public Set<Car> readDataFromFile() {
 			

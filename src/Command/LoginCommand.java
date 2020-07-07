@@ -1,6 +1,7 @@
 package Command;
 
-import Database.UserDatabase;
+import CommandProcessor.Session;
+import Database.UserDataManager;
 import View.CommandLine;
 
 public class LoginCommand implements Command {
@@ -17,8 +18,11 @@ public class LoginCommand implements Command {
 			return;
 		}
 		
-		if(UserDatabase.instance().login(args[1], args[2])) 
+		if(UserDataManager.instance().login(args[1], args[2])) {
+			CommandLine.instance().clearConsole();
 			CommandLine.instance().Print("Username (" + args[1] + ") successfully logged in");
+			
+		}
 		else 
 			CommandLine.instance().printError("Wrong username or password");
 

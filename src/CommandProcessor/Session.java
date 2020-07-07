@@ -13,8 +13,6 @@ public class Session {
 		return instance;
 	}
 	
-	public Session() {
-	}
 	
 	public void setUser(User u) {
 		this.user = u;
@@ -26,6 +24,16 @@ public class Session {
 	
 	public boolean isAdmin() {
 		return user.getRank()==1;
+	}
+	
+	public boolean isLoggedIn() {
+		if(user == null)
+			return false;
+		return true;
+	}
+	
+	public void logout() {
+		user = null;
 	}
 
 }

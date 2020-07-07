@@ -1,5 +1,7 @@
 package View;
 
+import java.io.IOException;
+
 public class CommandLine {
 	static CommandLine instance;
 	
@@ -16,6 +18,10 @@ public class CommandLine {
 	
 	public void printError(String s) {
 		System.err.println(s);
+	}
+	
+	public void clearConsole() {
+		
 	}
 
 }

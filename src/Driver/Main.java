@@ -5,13 +5,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import CommandProcessor.Processor;
-import Database.UserDatabase;
+import CommandProcessor.Session;
+import Database.UserDataManager;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		UserDatabase.instance().seedDatabase();
+		UserDataManager.instance().readDataFromFile();
+		UserDataManager.instance().seedDatabase();
+		UserDataManager.instance().showdb();
+	
 		
 		BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
 		Processor processor = new Processor();

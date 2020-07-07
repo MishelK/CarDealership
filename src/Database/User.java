@@ -2,8 +2,6 @@ package Database;
 
 import java.io.Serializable;
 
-import Car.Car;
-
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

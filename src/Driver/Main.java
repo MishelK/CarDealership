@@ -4,22 +4,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import Car.CarDataManager;
 import CommandProcessor.Processor;
 import CommandProcessor.Session;
+import Database.CarDataManager;
 import Database.UserDataManager;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-//		UserDataManager.instance().readDataFromFile();
-//		UserDataManager.instance().seedDatabase();
-//		UserDataManager.instance().showdb();
+		UserDataManager.instance().readDataFromFile();
+		UserDataManager.instance().seedDatabase();
+		UserDataManager.instance().showdb();
 		
 		CarDataManager.instance().readDataFromFile();
 		CarDataManager.instance().seedDatabase();
-		CarDataManager.instance().showdb();
+		//CarDataManager.instance().showdb();
 	
 		
 		BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));

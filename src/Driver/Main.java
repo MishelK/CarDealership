@@ -18,6 +18,7 @@ public class Main {
 		UserDataManager.instance().showdb();
 		
 		CarDataManager.instance().readDataFromFile();
+		CarDataManager.instance().readCarIdDataFromFile();
 		CarDataManager.instance().seedDatabase();
 		CarDataManager.instance().showdb();
 	

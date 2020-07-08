@@ -1,16 +1,14 @@
 package Command;
 
-import Database.Car;
 import Database.CarDataManager;
 import View.CommandLine;
 
-public class FindCarIdCommand implements Command {
+public class RemoveCarFromStock implements Command{
 
 	@Override
 	public void execute(String[] args) {
 		
 		int id = -1;
-		Car car = null;
 		
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
@@ -23,12 +21,15 @@ public class FindCarIdCommand implements Command {
 		
 		try {
 			id = Integer.parseInt(args[1]);
-		    car = CarDataManager.instance().find(id);
-		    if(car != null) {
-		    	CommandLine.instance().Print(car.toString());
+
+		    if(CarDataManager.instance().delete(id)) {
+		    	CommandLine.instance().Print("Car ID " + id + " has been removed from stock");
 		    }
+		    else
+		    	CommandLine.instance().printError("Car ID " + id + " is not in stock");
 		} catch (NumberFormatException e) {
 			CommandLine.instance().printError("Wrong arguments were provided");
 		}
+		
 	}
 }

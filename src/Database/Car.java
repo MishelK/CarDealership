@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class Car implements Serializable{
+public class Car implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -104,6 +104,16 @@ public class Car implements Serializable{
 				+ " ]";
 	}
 
+	public int compareTo(Car o) {
+		if(this.getCar_price() > o.getCar_price()) {
+			return 1;
+		}else if(this.getCar_price() < o.getCar_price()) {
+			return -1;
+		}
+		return 0;
+	}
+	
+	
 // auto generated hash and equals for car unique ID feature
 @Override
 	public int hashCode() {

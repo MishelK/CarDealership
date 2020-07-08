@@ -12,12 +12,14 @@ import Command.FindCarBrandCommand;
 import Command.FindCarIdCommand;
 import Command.FindCarMaxPriceCommand;
 import Command.FindCarModelCommand;
-import Command.FindCarPriceCommand;
+//import Command.FindCarPriceCommand;
 import Command.LoginCommand;
 import Command.LogoutCommand;
 import Command.NotFoundCommand;
+import Command.RemoveCarFromStock;
 import Command.SellCarIdCommand;
 import Command.ShowAllCarsCommand;
+import Command.UpdateCarPriceCommand;
 import View.CommandLine;
 
 public class Processor {
@@ -37,10 +39,12 @@ public class Processor {
 		mCommandsMap.put( "findid", new FindCarIdCommand());
 		mCommandsMap.put( "findbrand", new FindCarBrandCommand());
 		mCommandsMap.put( "findmodel", new FindCarModelCommand()); 
-		mCommandsMap.put( "findprice", new FindCarPriceCommand()); // NOT WORKING
+		// mCommandsMap.put( "findprice", new FindCarPriceCommand()); // NOT WORKING
 		mCommandsMap.put( "stock", new ShowAllCarsCommand()); 
 		mCommandsMap.put( "maxprice", new FindCarMaxPriceCommand()); 
-		mCommandsMap.put( "addcar", new AddCarCommand()); // ?
+		mCommandsMap.put( "addcar", new AddCarCommand());
+		mCommandsMap.put( "updateprice", new UpdateCarPriceCommand());
+		mCommandsMap.put( "removecar", new RemoveCarFromStock());
 		// sale commands
 		mCommandsMap.put( "calcbonus", new CalcBonusCommand());
 //		mCommandsMap.put( "update", new UpdateCarCommand();

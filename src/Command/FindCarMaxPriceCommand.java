@@ -1,9 +1,14 @@
 package Command;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import Database.Car;
 import Database.CarDataManager;
@@ -31,8 +36,10 @@ public class FindCarMaxPriceCommand implements Command {
 			
 			priceCars = CarDataManager.instance().find_maxPrice(max_price); // gets full list of cars
 			
+			ArrayList<Car> carsList = new ArrayList<Car>();
+				
 			List<Car> carsSorted = priceCars.stream().collect(Collectors.toList()); // sorting list
-			
+				
 			if(priceCars.size() > 0 ) {
 				for (Car car : carsSorted) { // print list
 					CommandLine.instance().Print(car.toString());

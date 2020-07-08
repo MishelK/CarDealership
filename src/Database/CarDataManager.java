@@ -9,10 +9,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import View.CommandLine;
 
 
@@ -54,6 +55,17 @@ public class CarDataManager {
 		if(this.carsData.add(car)) { // adds car to set
 			WriteToFile(); // saves changes to file
 			WriteIdToFile();
+			return true;
+		}
+		return false;
+	}
+	
+	// Change PRICE
+	public boolean change_price(int id, int price) {	
+		Car newcar = this.find(id);
+		if(newcar != null) {
+			newcar.setCar_price(price);
+			WriteToFile(); // saves changes to file
 			return true;
 		}
 		return false;
@@ -107,18 +119,7 @@ public class CarDataManager {
 			if (car.getCar_price() < price)
 				priceCar.add(car);
 		}
-		return priceCar;
-	}
-	
-	// FIND cars by price
-	public Set<Car> find_price(int min_price, int max_price) {
-		Set<Car> priceCar = new HashSet<Car>();
-		
-		for (Car car : carsData) {
-			if((car.getCar_price() >= min_price) & (car.getCar_price() < max_price) ) { // price between min and max
-				priceCar.add(car);
-			}
-		}
+		priceCar = sortPrice(priceCar);
 		return priceCar;
 	}
 	
@@ -130,6 +131,27 @@ public class CarDataManager {
 				newset.add(car);
 		}
 		return newset;
+	}
+	
+	// SORT by PRICE
+	public Set<Car> sortPrice(Set<Car> carsSet) {
+		
+		Car[] carsArr = new Car[carsSet.size()];
+		carsSet.toArray(carsArr);
+		
+		Arrays.sort(carsSet.toArray(carsArr), new Comparator<Car>(){
+
+			@Override
+			public int compare(Car o1, Car o2) {
+				if(o1.getCar_price() == o2.getCar_price())
+					return 0;
+				if(o1.getCar_price() > o2.getCar_price())
+					return 1;
+				else
+					return 0;
+			}
+		});
+		return carsSet;
 	}
 	
 	
@@ -152,8 +174,6 @@ public class CarDataManager {
 		}
 		return writeCarResult;
 	}
-		
-	
 	
 	// READ from file
 	@SuppressWarnings("unchecked") // for casting
@@ -240,7 +260,7 @@ public boolean WriteIdToFile() {
 		testcar.setCarBrand("mazda");
 		testcar.setCarMile(140000);
 		
-		testcar2.setCar_id(1);
+		testcar2.setCar_id(11);
 		testcar2.setCar_color("yellow");
 		testcar2.setCar_model("civic");
 		testcar2.setCar_year(1996);

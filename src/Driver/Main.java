@@ -19,7 +19,7 @@ public class Main {
 		
 		CarDataManager.instance().readDataFromFile();
 		CarDataManager.instance().seedDatabase();
-		//CarDataManager.instance().showdb();
+		CarDataManager.instance().showdb();
 	
 		
 		BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));

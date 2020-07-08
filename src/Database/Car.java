@@ -15,6 +15,10 @@ public class Car implements Serializable{
 	private int car_price;
 	private int car_sold;
 	
+	public Car() {
+		
+	}
+	
 	public Car(int id) {
 		this.car_id = id;
 	}

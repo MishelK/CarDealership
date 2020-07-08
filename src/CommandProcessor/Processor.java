@@ -6,9 +6,16 @@ import Command.AddUserCommand;
 import Command.Command;
 import Command.DeleteUserCommand;
 import Command.DoNothingCommand;
+import Command.FindCarBrandCommand;
+import Command.FindCarIdCommand;
+import Command.FindCarMaxPriceCommand;
+import Command.FindCarModelCommand;
+import Command.FindCarPriceCommand;
 import Command.LoginCommand;
 import Command.LogoutCommand;
 import Command.NotFoundCommand;
+import Command.SellCarIdCommand;
+import Command.ShowAllCarsCommand;
 import View.CommandLine;
 
 public class Processor {
@@ -23,8 +30,19 @@ public class Processor {
 		mCommandsMap.put( "deleteuser", new DeleteUserCommand());
 		mCommandsMap.put( "login" , new LoginCommand());
 		mCommandsMap.put( "logout", new LogoutCommand());
+		// car commands
+		mCommandsMap.put( "sell", new SellCarIdCommand());
+		mCommandsMap.put( "findid", new FindCarIdCommand());
+		mCommandsMap.put( "findbrand", new FindCarBrandCommand());
+		mCommandsMap.put( "findmodel", new FindCarModelCommand());
+		mCommandsMap.put( "findprice", new FindCarPriceCommand()); // NOT WORKING
+		mCommandsMap.put( "allcars", new ShowAllCarsCommand()); 
+		mCommandsMap.put( "maxprice", new FindCarMaxPriceCommand()); 
 		
 		
+//		mCommandsMap.put( "addcar", new AddCarCommand()); // ?
+//		mCommandsMap.put( "update", new UpdateCarCommand();
+
 	}
 
 	public void processLine(String line) {

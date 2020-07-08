@@ -8,7 +8,9 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import View.CommandLine;
@@ -29,20 +31,27 @@ public class CarDataManager {
 	}
 	
 	// DELETE car from set
-	public void delete(int id) {
-		this.carsData.remove(new Car(id)); // deletes car only if car in set
-		WriteToFile(); // saves changes to file
+	public boolean delete(int id) {
+		if(this.carsData.remove(new Car(id))) {
+			WriteToFile(); // saves changes to file
+			return true; // deletes car only if car in set
+		}
+		return false;
 	}
 	
 	
 	// ADD car to set
-	public void add_car(Car car) { 
+	public boolean add_car(Car car) { 
 		// get a car and add to set 
 		if (this.carsData.contains(car)) { // check if car already in set
 			CommandLine.instance().printError("Car " + car.getCar_id() + " already exists");
+			return false;
 		}
-		this.carsData.add(car); // adds car to set
-		WriteToFile(); // saves changes to file
+		if(this.carsData.add(car)) { // adds car to set
+			WriteToFile(); // saves changes to file
+			return true;
+		}
+		return false;
 	}
 	
 	
@@ -55,31 +64,65 @@ public class CarDataManager {
 				}
 			}
 		}
-		CommandLine.instance().printError("Car ID: " + id + " not found");
+		CommandLine.instance().printError("Car ID " + id + " not found");
 		return null;
 	}
 	
 	
 	// FIND cars set by BRAND
 	public Set<Car> find_brand(String brand) {
-		Set<Car> newset = new HashSet<Car>();
+		
+		Set<Car> brandCar = new HashSet<Car>();
 		
 		for (Car car : carsData) {
-			if (car.getCarBrand() == brand ) {
-				newset.add(car);
+			if (car.getCarBrand().equals(brand)) {
+				brandCar.add(car);
 			}
 		}
-		return newset;
+		return brandCar;
 	}
 	
 	// FIND cars set by MODEL
 	public Set<Car> find_model(String model) {
-		Set<Car> newset = new HashSet<Car>();
+		Set<Car> modelCar = new HashSet<Car>();
 		
 		for (Car car : carsData) {
-			if (car.getCar_model() == model ) {
-				newset.add(car);
+			if (car.getCar_model().equals(model)) {
+				modelCar.add(car);
 			}
+		}
+		return modelCar;
+	}
+	
+	// FIND car by max price
+	public Set<Car> find_maxPrice(int price) {
+		Set<Car> priceCar = new HashSet<Car>();
+		
+		for (Car car : carsData) {
+			if (car.getCar_price() < price)
+				priceCar.add(car);
+		}
+		return priceCar;
+	}
+	
+	// FIND cars by price
+	public Set<Car> find_price(int min_price, int max_price) {
+		Set<Car> priceCar = new HashSet<Car>();
+		
+		for (Car car : carsData) {
+			if((car.getCar_price() >= min_price) & (car.getCar_price() < max_price) ) { // price between min and max
+				priceCar.add(car);
+			}
+		}
+		return priceCar;
+	}
+	
+	// FIND ALL CARS
+	public Set<Car> findall() {
+		Set<Car> newset = new HashSet<Car>();
+		
+		for (Car car : this.carsData) {
+				newset.add(car);
 		}
 		return newset;
 	}
@@ -131,10 +174,32 @@ public class CarDataManager {
 	
 	
 	public void seedDatabase() {
+		Car testcar = new Car();
+		Car testcar2 = new Car();
 		
-			carsData.add(new Car(11));
-			WriteToFile();
-		}
+		testcar.setCar_id(69);
+		testcar.setCar_color("green");
+		testcar.setCar_model("323");
+		testcar.setCar_owners(3);
+		testcar.setCar_price(15000);
+		testcar.setCar_sold(0);
+		testcar.setCarBrand("mazda");
+		testcar.setCarMile(140000);
+		
+		testcar2.setCar_id(1);
+		testcar2.setCar_color("yellow");
+		testcar2.setCar_model("lantis");
+		testcar2.setCar_owners(33);
+		testcar2.setCar_price(7000);
+		testcar2.setCar_sold(0);
+		testcar2.setCarBrand("mazda");
+		testcar2.setCarMile(280000);
+		
+		this.carsData.add(testcar2);
+		
+		this.carsData.add(testcar);
+		WriteToFile();
+	}
 	
 		
 	

@@ -13,7 +13,6 @@ public class Car implements Serializable{
 	private String car_color;
 	private int car_owners;
 	private int car_price;
-	private int car_sold;
 	
 	public Car() {
 		
@@ -88,19 +87,12 @@ public class Car implements Serializable{
 		this.car_price = car_price;
 	}
 
-	public int getCar_sold() { // get status [SOLD/NOT SOLD]
-		return car_sold;
-	}
-
-	public void setCar_sold(int car_sold) { // set status [SOLD/NOT SOLD]
-		this.car_sold = car_sold;
-	}
 	
 	@Override
 	public String toString() {
-		return "Car [ID=" + car_id + ", BRAND=" + car_brand + ", MODEL=" + car_model + ", MILEAGE="
+		return "Car [ ID=" + car_id + ", BRAND=" + car_brand + ", MODEL=" + car_model + ", MILEAGE="
 				+ car_mile + ", COLOR=" + car_color + ", OWNERS=" + car_owners + ", PRICE=" + car_price
-				+ ", STATUS=" + car_sold + "]";
+				+ " ]";
 	}
 
 // auto generated hash and equals for car unique ID feature

@@ -20,7 +20,9 @@ public class CarDataManager {
 	
 	private Set<Car> carsData = new HashSet<Car>(); // set without 2 same objects
 	private final String fileName = "cars.dat";
+	private final String idFileName = "carid.dat";
 	private static CarDataManager instance;
+	private Integer lastID;
 	
 	
 	public static CarDataManager instance() { // singleton
@@ -47,8 +49,11 @@ public class CarDataManager {
 			CommandLine.instance().printError("Car " + car.getCar_id() + " already exists");
 			return false;
 		}
+		lastID++;
+		car.setCar_id(lastID);
 		if(this.carsData.add(car)) { // adds car to set
 			WriteToFile(); // saves changes to file
+			WriteIdToFile();
 			return true;
 		}
 		return false;
@@ -156,7 +161,6 @@ public class CarDataManager {
 			
 			File file = new File(fileName); 
 			if (file.length() == 0) { // in case file is empty, for the first time 
-				System.out.println("File is empty");
 				return carsData;
 			} 
 			try (InputStream fileInputStream = new FileInputStream(fileName);
@@ -167,10 +171,49 @@ public class CarDataManager {
 				
 			} catch (IOException | ClassNotFoundException e) {
 				e.printStackTrace();
-				System.out.println("Exception while reading from file");
+				CommandLine.instance().printError("Exception while reading from file");
 			}
 			return carsData;
 		}
+	
+	public Integer readCarIdDataFromFile() {
+		
+		File file = new File(idFileName); 
+		if (file.length() == 0) { // in case file is empty, for the first time 
+			lastID = 0;
+			return lastID;
+		} 
+		try (InputStream fileInputStream = new FileInputStream(idFileName);
+				ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)){
+			
+			lastID = (Integer) objectInputStream.readObject();
+			
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+			CommandLine.instance().printError("Exception while reading from file");
+		}
+		return lastID;
+		
+	}
+	
+public boolean WriteIdToFile() { 
+		
+		boolean writeIdResult = false;
+		
+		// try-with-resources
+		try (OutputStream fileOutputStream = new FileOutputStream(idFileName); 
+				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)){
+			
+				objectOutputStream.writeObject(lastID);
+				writeIdResult = true;
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			CommandLine.instance().printError("Exception while saving to file");
+			writeIdResult = false;
+		}
+		return writeIdResult;
+	}
 	
 	
 	public void seedDatabase() {
@@ -182,7 +225,6 @@ public class CarDataManager {
 		testcar.setCar_model("323");
 		testcar.setCar_owners(3);
 		testcar.setCar_price(15000);
-		testcar.setCar_sold(0);
 		testcar.setCarBrand("mazda");
 		testcar.setCarMile(140000);
 		
@@ -191,13 +233,12 @@ public class CarDataManager {
 		testcar2.setCar_model("lantis");
 		testcar2.setCar_owners(33);
 		testcar2.setCar_price(7000);
-		testcar2.setCar_sold(0);
 		testcar2.setCarBrand("mazda");
 		testcar2.setCarMile(280000);
 		
-		this.carsData.add(testcar2);
+		this.add_car(testcar);
+		this.add_car(testcar2);
 		
-		this.carsData.add(testcar);
 		WriteToFile();
 	}
 	

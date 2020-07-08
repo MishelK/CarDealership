@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
 import Database.Car;
 import Database.CarDataManager;
 import View.CommandLine;
@@ -24,24 +22,23 @@ public class FindCarMaxPriceCommand implements Command {
 	
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
+			help();
 			return;
 		}
 		if(args.length < 2) {
 			CommandLine.instance().printError("Not enough arguments were provided");
+			help();
 			return;
 		}
 		
 		try {
 			max_price = Integer.parseInt(args[1]);
 			
-			priceCars = CarDataManager.instance().find_maxPrice(max_price); // gets full list of cars
-			
-			ArrayList<Car> carsList = new ArrayList<Car>();
+			Car[] sortedArr = CarDataManager.instance().find_maxPrice(max_price); // gets full list of cars
 				
-			List<Car> carsSorted = priceCars.stream().collect(Collectors.toList()); // sorting list
-				
-			if(priceCars.size() > 0 ) {
-				for (Car car : carsSorted) { // print list
+			if(sortedArr != null) {
+				CommandLine.instance().Print("Here is the list of cars within the price range, sorted by price:");
+				for (Car car : sortedArr) { // print list
 					CommandLine.instance().Print(car.toString());
 				}
 			}
@@ -51,5 +48,11 @@ public class FindCarMaxPriceCommand implements Command {
 			CommandLine.instance().printError("Wrong arguments were provided");
 		}
 
+	}
+
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		CommandLine.instance().Print("The correct use is: findmaxprice maxprice");
 	}
 }

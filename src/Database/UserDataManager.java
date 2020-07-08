@@ -117,6 +117,17 @@ public class UserDataManager {
 		return false;
 	}
 	
+	public void printUsers() {
+		
+		User[] usersArr = new User[usersData.size()];
+		usersData.toArray(usersArr);
+		
+		for(int i = 0; i < usersData.size(); i++) {
+			CommandLine.instance().Print(usersArr[i].toString());	
+		}
+		
+	}
+	
 	public void seedDatabase() {
 		
 		if(usersData.contains(new User("root","root",1)))
@@ -127,8 +138,13 @@ public class UserDataManager {
 		}
 	
 		
+		
 	}
 	
+	public Set<User> getUsersData() {
+		return usersData;
+	}
+
 	public void showdb() {
 		
 		User[] usersArr = new User[usersData.size()];

@@ -1,5 +1,6 @@
 package Command;
 
+import CommandProcessor.Session;
 import Database.Car;
 import Database.CarDataManager;
 import View.CommandLine;
@@ -8,6 +9,8 @@ public class AddCarCommand implements Command {
 
 	@Override
 	public void execute(String[] args) {
+		
+		if(Session.instance().isAdmin()) {
 		
 		Car newcar = new Car();
 		String brand;
@@ -20,10 +23,12 @@ public class AddCarCommand implements Command {
 		
 		if(args.length > 8) {
 			CommandLine.instance().printError("Too many arguments");
+			help();
 			return;
 		}
 		if(args.length < 8) {
 			CommandLine.instance().printError("Not enough arguments were provided");
+			help();
 			return;
 		}
 		
@@ -51,5 +56,14 @@ public class AddCarCommand implements Command {
 		} catch (NumberFormatException e) {
 			CommandLine.instance().printError("Wrong arguments were provided");
 		}
+	}
+		else {
+			CommandLine.instance().printError("Only managers can use this command");
+			}
+		}
+
+	@Override
+	public void help() {
+		CommandLine.instance().Print("The correct use is: addcar brand model year mileage color owners price");
 	}
 }

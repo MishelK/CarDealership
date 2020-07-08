@@ -14,10 +14,12 @@ public class FindCarIdCommand implements Command {
 		
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
+			help();
 			return;
 		}
 		if(args.length < 2) {
 			CommandLine.instance().printError("Not enough arguments were provided");
+			help();
 			return;
 		}
 		
@@ -30,5 +32,11 @@ public class FindCarIdCommand implements Command {
 		} catch (NumberFormatException e) {
 			CommandLine.instance().printError("Wrong arguments were provided");
 		}
+	}
+
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		CommandLine.instance().Print("The correct use is: findid id");
 	}
 }

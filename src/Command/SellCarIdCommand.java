@@ -15,10 +15,12 @@ public class SellCarIdCommand implements Command {
 
 		if(args.length > 3) {
 			CommandLine.instance().printError("Too many arguments");
+			help();
 			return;
 		}
 		if(args.length < 3) {
 			CommandLine.instance().printError("Not enough arguments were provided");
+			help();
 			return;
 		}
 		
@@ -54,6 +56,7 @@ public class SellCarIdCommand implements Command {
 		Car car = new Car();
 		int idInt = Integer.parseInt(args[1]);
 		LocalDate date = LocalDate.now(); // Create a date object
+		
 
 		car = CarDataManager.instance().getCarById(idInt);
 		if(car == null) {
@@ -65,4 +68,10 @@ public class SellCarIdCommand implements Command {
 			CarDataManager.instance().delete(idInt);
 		CommandLine.instance().Print("Car [ Id = " + args[1] + " ] successfully sold for (" + price + ") on " + date);
      }
+
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		CommandLine.instance().Print("The correct use is: sellcar id price");
+	}
 	}

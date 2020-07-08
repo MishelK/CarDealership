@@ -99,8 +99,8 @@ public class Car implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Car [ ID=" + car_id + ", BRAND=" + car_brand + ",YEAR=" + car_year + ", MODEL=" + car_model + ", MILEAGE="
-				+ car_mile + ", COLOR=" + car_color + ", OWNERS=" + car_owners + ", PRICE=" + car_price
+		return "Car [ Id = " + car_id + ", Brand = " + car_brand + ", Year = " + car_year + ", Model = " + car_model + ", Mileage = "
+				+ car_mile + ", Color = " + car_color + ", Owners = " + car_owners + ", Price = " + car_price
 				+ " ]";
 	}
 

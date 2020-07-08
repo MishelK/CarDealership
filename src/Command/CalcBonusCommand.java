@@ -18,6 +18,12 @@ public class CalcBonusCommand implements Command {
 		CommandLine.instance().Print("So far your monthly bonus is at = " +bonus);
 		
 	}
+
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

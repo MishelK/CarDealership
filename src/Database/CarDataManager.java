@@ -112,15 +112,22 @@ public class CarDataManager {
 	}
 	
 	// FIND car by max price
-	public Set<Car> find_maxPrice(int price) {
+	public Car[] find_maxPrice(int price) {
 		Set<Car> priceCar = new HashSet<Car>();
 		
 		for (Car car : carsData) {
 			if (car.getCar_price() < price)
 				priceCar.add(car);
 		}
-		priceCar = sortPrice(priceCar);
-		return priceCar;
+		
+		if(priceCar.isEmpty())
+			return null;
+
+		Car[] carArr = new Car[priceCar.size()];
+		priceCar.toArray(carArr);
+		
+		return sortArrByPrice(carArr); //will return an array sorted by price
+		
 	}
 	
 	// FIND ALL CARS
@@ -134,12 +141,9 @@ public class CarDataManager {
 	}
 	
 	// SORT by PRICE
-	public Set<Car> sortPrice(Set<Car> carsSet) {
+	public Car[] sortArrByPrice(Car[] carArr) {
 		
-		Car[] carsArr = new Car[carsSet.size()];
-		carsSet.toArray(carsArr);
-		
-		Arrays.sort(carsSet.toArray(carsArr), new Comparator<Car>(){
+		Arrays.sort(carArr, new Comparator<Car>(){
 
 			@Override
 			public int compare(Car o1, Car o2) {
@@ -148,10 +152,29 @@ public class CarDataManager {
 				if(o1.getCar_price() > o2.getCar_price())
 					return 1;
 				else
-					return 0;
+					return -1;
 			}
 		});
-		return carsSet;
+		
+		return carArr;
+	}
+	
+    public Car[] sortArrById(Car[] carArr) {
+		
+		Arrays.sort(carArr, new Comparator<Car>(){
+
+			@Override
+			public int compare(Car o1, Car o2) {
+				if(o1.getCar_id() == o2.getCar_id())
+					return 0;
+				if(o1.getCar_id() > o2.getCar_id())
+					return 1;
+				else
+					return -1;
+			}
+		});
+		
+		return carArr;
 	}
 	
 	
@@ -251,7 +274,7 @@ public boolean WriteIdToFile() {
 		Car testcar = new Car();
 		Car testcar2 = new Car();
 		
-		testcar.setCar_id(69);
+		
 		testcar.setCar_color("green");
 		testcar.setCar_model("323");
 		testcar2.setCar_year(2020);
@@ -260,7 +283,7 @@ public boolean WriteIdToFile() {
 		testcar.setCarBrand("mazda");
 		testcar.setCarMile(140000);
 		
-		testcar2.setCar_id(11);
+		
 		testcar2.setCar_color("yellow");
 		testcar2.setCar_model("civic");
 		testcar2.setCar_year(1996);

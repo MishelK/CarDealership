@@ -16,6 +16,12 @@ public class LogoutCommand implements Command{
 		Session.instance().logout();
 		CommandLine.instance().Print("Logged out successfully");
 	}
+
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

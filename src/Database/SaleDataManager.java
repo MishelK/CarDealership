@@ -9,7 +9,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import CommandProcessor.Session;
@@ -76,12 +82,24 @@ public class SaleDataManager {
 		return salesData;
 	}
 	
-    public void showdb() {
+    public void salesReport() {
 		
 		Sale[] salesArr = new Sale[salesData.size()];
 		salesData.toArray(salesArr);
 
-		
+		Arrays.sort(salesArr, new Comparator<Sale>() {
+
+			@Override
+			public int compare(Sale o1, Sale o2) {
+				if(o1.getSale_id() == o2.getSale_id())
+				    return 0;
+				if(o1.getSale_id() > o2.getSale_id())
+					return 1;
+				else
+					return -1;
+			}
+			
+		});
 	
 		for(int i = 0; i < salesData.size(); i++) {
 			CommandLine.instance().Print(salesArr[i].toString());
@@ -167,6 +185,90 @@ public class SaleDataManager {
     	
     	return bonus;
     }
+    
+    public void bestSeller() {
+    	
+    	
+    	Sale[] saleArr = new Sale[salesData.size()];
+    	salesData.toArray(saleArr);
+    	
+    	Map<String,Integer> modelMap = new HashMap<String,Integer>();
+    	for(int i = 0; i < salesData.size(); i++) {
+    		
+    		if(modelMap.containsKey(saleArr[i].getCar_model())) {
+    		   modelMap.put(saleArr[i].getCar_model(), modelMap.get(saleArr[i].getCar_model())+1);
+    		}
+    		else
+    			modelMap.put(saleArr[i].getCar_model(), 1);
+    		
+    	}
+    	
+    	int maxValueInMap = (Collections.max(modelMap.values()));
+    	
+    	while(maxValueInMap != 0) {
+    		
+    		maxValueInMap = (Collections.max(modelMap.values()));
+    		
+    		for (Entry<String, Integer> entry : modelMap.entrySet()) {  // Itrate through hashmap
+                if (entry.getValue()==maxValueInMap && maxValueInMap != 0) {
+                    CommandLine.instance().Print("Car of model = '" + entry.getKey() + "' sold (" +maxValueInMap + ") times.");// Print the key with max value
+               
+                    modelMap.put(entry.getKey(), 0);
+                }
+            }
+    		
+    	}
+    	
+    	
+    	
+    }
+    	
+    
 	
+    public void bestDealers() {
+    	
+    	Sale[] saleArr = new Sale[salesData.size()];
+    	salesData.toArray(saleArr);
+    	User[] userArr = new User[UserDataManager.instance().getUsersData().size()];
+    	UserDataManager.instance().getUsersData().toArray(userArr);
+    	
+    	Map<String,Integer> sellerMap = new HashMap<String,Integer>();
+    	for(int i = 0; i < salesData.size(); i++) {
+    		
+    		if(sellerMap.containsKey(saleArr[i].getSeller_username())) {
+    			sellerMap.put(saleArr[i].getSeller_username(), sellerMap.get(saleArr[i].getSeller_username())+1);
+    		}
+    		else
+    			sellerMap.put(saleArr[i].getSeller_username(), 1);
+    		
+    	}
+    	
+    	
+int     maxValueInMap = (Collections.max(sellerMap.values()));
+    	
+    	while(maxValueInMap != 0) {
+    		
+    		maxValueInMap = (Collections.max(sellerMap.values()));
+    		
+    		for (Entry<String, Integer> entry : sellerMap.entrySet()) {  // Iterate through hashmap
+                if (entry.getValue()==maxValueInMap && maxValueInMap != 0) {
+                    CommandLine.instance().Print("Dealer = '" + entry.getKey() + "' sold (" +maxValueInMap + ") cars.");// Print the key with max value
+               
+                    sellerMap.put(entry.getKey(), 0);
+                }
+            }
+    		
+    	}
+    	
+    }
+    
+    public boolean isEmpty() {
+    	
+    	if(salesData.isEmpty())
+    		return true;
+    	return false;
+    	
+    }
+    
 
 }

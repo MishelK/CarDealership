@@ -9,12 +9,16 @@ public class DeleteUserCommand implements Command {
 	@Override
 	public void execute(String[] args) {
 		
+		if(Session.instance().isAdmin()) {
+		
 		if(args.length > 3) {
 			CommandLine.instance().printError("Too many arguments");
+			help();
 			return;
 		}
 		if(args.length < 3) {
 			CommandLine.instance().printError("Not enough arguments were provided");
+			help();
 			return;
 		}
 		
@@ -35,5 +39,14 @@ public class DeleteUserCommand implements Command {
 		
 
 	}
+		else {
+			CommandLine.instance().printError("Only managers can use this command");
+		}
+	}
 
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		CommandLine.instance().Print("The correct use is: deleteuser username password");
+	}
 }

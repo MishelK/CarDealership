@@ -9,6 +9,7 @@ import CommandProcessor.Session;
 import Database.CarDataManager;
 import Database.SaleDataManager;
 import Database.UserDataManager;
+import View.CommandLine;
 
 public class Main {
 
@@ -16,17 +17,18 @@ public class Main {
 		
 		UserDataManager.instance().readDataFromFile();
 		UserDataManager.instance().seedDatabase();
-		UserDataManager.instance().showdb();
+		//UserDataManager.instance().showdb();
 		
 		CarDataManager.instance().readDataFromFile();
 		CarDataManager.instance().readCarIdDataFromFile();
 		CarDataManager.instance().seedDatabase();
-		CarDataManager.instance().showdb();
+		//CarDataManager.instance().showdb();
 		
 		SaleDataManager.instance().readDataFromFile();
 		SaleDataManager.instance().readSaleIdDataFromFile();
-		SaleDataManager.instance().showdb();
+		//SaleDataManager.instance().salesReport();
 	
+		CommandLine.instance().Print("Welcome to Dealership Plus, Please login to the system");
 		
 		BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
 		Processor processor = new Processor();

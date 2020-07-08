@@ -1,5 +1,6 @@
 package Command;
 
+import CommandProcessor.Session;
 import Database.CarDataManager;
 import View.CommandLine;
 
@@ -8,14 +9,18 @@ public class RemoveCarFromStock implements Command{
 	@Override
 	public void execute(String[] args) {
 		
+		if(Session.instance().isAdmin()) {
+		
 		int id = -1;
 		
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
+			help();
 			return;
 		}
 		if(args.length < 2) {
 			CommandLine.instance().printError("Not enough arguments were provided");
+			help();
 			return;
 		}
 		
@@ -31,5 +36,15 @@ public class RemoveCarFromStock implements Command{
 			CommandLine.instance().printError("Wrong arguments were provided");
 		}
 		
+	}
+		else {
+			CommandLine.instance().printError("Only managers can use this command");
+		}
+	}
+
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		CommandLine.instance().Print("The correct use is: removecar id");
 	}
 }

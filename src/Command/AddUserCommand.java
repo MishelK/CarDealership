@@ -11,16 +11,19 @@ public class AddUserCommand implements Command {
 	@Override
 	public void execute(String[] args) {
 		
+		if(Session.instance().isAdmin()) {
+		
 		if(args.length > 4) {
 			CommandLine.instance().printError("Too many arguments");
+			help();
 			return;
 		}
 		if(args.length < 4) {
 			CommandLine.instance().printError("Not enough arguments were provided");
+			help();
 			return;
 		}
 		
-		if(Session.instance().isAdmin()) {
 			
 			if(!(args[3].equals("0") || args[3].equals("1"))) {
 				CommandLine.instance().printError("Rank can only be 0 or 1");
@@ -31,12 +34,16 @@ public class AddUserCommand implements Command {
 			    CommandLine.instance().Print("Username (" + args[1] + ") successfully added");
 		    else 
 			    CommandLine.instance().printError("Username (" + args[1] + ") already exists");
-		
+			
 		}
 		else {
-			CommandLine.instance().printError("Only managers can add users");
+			CommandLine.instance().printError("Only managers can use this command");
 		}
-		
 	}
 
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		CommandLine.instance().Print("The correct use is: adduser username password rank, where rank is (0 = dealer, 1 = manager)");
+	}
 }

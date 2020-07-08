@@ -1,5 +1,6 @@
 package Command;
 
+import CommandProcessor.Session;
 import Database.Car;
 import Database.CarDataManager;
 import View.CommandLine;
@@ -8,6 +9,8 @@ public class UpdateCarPriceCommand implements Command{
 
 	@Override
 	public void execute(String[] args) {
+		
+		if(Session.instance().isAdmin()) {
 		
 		int id = -1;
 		int price = 0;
@@ -33,7 +36,17 @@ public class UpdateCarPriceCommand implements Command{
 		}
 		
 	}
+		else {
+			CommandLine.instance().printError("Only managers can use this command");
+		}
 	
+	}
+
+	@Override
+	public void help() {
+		// TODO Auto-generated method stub
+		CommandLine.instance().Print("The correct use is: updateprice id newprice");
+	}
 	
 
 }

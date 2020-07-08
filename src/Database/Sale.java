@@ -5,6 +5,10 @@ import java.time.LocalDate;
 
 public class Sale implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int sale_id;
 	private String seller_username;
 	private String sale_price;
@@ -48,6 +52,10 @@ public class Sale implements Serializable{
 
 	public LocalDate getSale_date() {
 		return sale_date;
+	}
+	
+	public String getCar_model() {
+		return car_model;
 	}
 
 	@Override

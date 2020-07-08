@@ -2,6 +2,7 @@ package CommandProcessor;
 
 import java.util.HashMap;
 
+import Command.AddCarCommand;
 import Command.AddUserCommand;
 import Command.Command;
 import Command.DeleteUserCommand;
@@ -34,13 +35,13 @@ public class Processor {
 		mCommandsMap.put( "sell", new SellCarIdCommand());
 		mCommandsMap.put( "findid", new FindCarIdCommand());
 		mCommandsMap.put( "findbrand", new FindCarBrandCommand());
-		mCommandsMap.put( "findmodel", new FindCarModelCommand());
+		mCommandsMap.put( "findmodel", new FindCarModelCommand()); 
 		mCommandsMap.put( "findprice", new FindCarPriceCommand()); // NOT WORKING
 		mCommandsMap.put( "allcars", new ShowAllCarsCommand()); 
 		mCommandsMap.put( "maxprice", new FindCarMaxPriceCommand()); 
+		mCommandsMap.put( "addcar", new AddCarCommand()); // ?
 		
 		
-//		mCommandsMap.put( "addcar", new AddCarCommand()); // ?
 //		mCommandsMap.put( "update", new UpdateCarCommand();
 
 	}

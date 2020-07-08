@@ -223,6 +223,7 @@ public boolean WriteIdToFile() {
 		testcar.setCar_id(69);
 		testcar.setCar_color("green");
 		testcar.setCar_model("323");
+		testcar2.setCar_year(2020);
 		testcar.setCar_owners(3);
 		testcar.setCar_price(15000);
 		testcar.setCarBrand("mazda");
@@ -230,10 +231,11 @@ public boolean WriteIdToFile() {
 		
 		testcar2.setCar_id(1);
 		testcar2.setCar_color("yellow");
-		testcar2.setCar_model("lantis");
+		testcar2.setCar_model("civic");
+		testcar2.setCar_year(1996);
 		testcar2.setCar_owners(33);
 		testcar2.setCar_price(7000);
-		testcar2.setCarBrand("mazda");
+		testcar2.setCarBrand("honda");
 		testcar2.setCarMile(280000);
 		
 		this.add_car(testcar);

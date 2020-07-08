@@ -12,7 +12,7 @@ public class SellCarIdCommand implements Command {
 	public void execute(String[] args) { // deletes car by id from stock set
 		
 		Car car = new Car();
-		int id = Integer.parseInt(args[1]);
+		int id = -1;
 		LocalDate date = LocalDate.now(); // Create a date object
 		int price =  0; // change
 
@@ -25,13 +25,19 @@ public class SellCarIdCommand implements Command {
 			return;
 		}
 
-		car = CarDataManager.instance().find(id);
-		price = car.getCar_price();
+		try {
+			id = Integer.parseInt(args[1]);
 		
-	    if(CarDataManager.instance().delete(id)) {
-		    CommandLine.instance().Print("Car (" + args[1] + ") sold for " + price + " at " + date);
-	    }
-	    else 
-		    CommandLine.instance().printError("Car (" + args[1] + ") does not exist");
-     }
+			car = CarDataManager.instance().find(id);
+			if (car != null)
+				price = car.getCar_price();
+		
+			if(CarDataManager.instance().delete(id)) {
+				CommandLine.instance().Print("Car (" + args[1] + ") sold for " + price + " on " + date);
+			}
+			} catch (NumberFormatException e) {
+				CommandLine.instance().printError("Wrong arguments were provided");
+			}
 	}
+}
+

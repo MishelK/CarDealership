@@ -1,5 +1,6 @@
 package Database;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 
 public class Car implements Serializable{
@@ -9,6 +10,7 @@ public class Car implements Serializable{
 	private int car_id;
 	private String car_brand;
 	private String car_model;
+	private int car_year;
 	private int car_mile;
 	private String car_color;
 	private int car_owners;
@@ -86,11 +88,18 @@ public class Car implements Serializable{
 	public void setCar_price(int car_price) { // set price
 		this.car_price = car_price;
 	}
-
 	
+	public int getCar_year() {
+		return car_year;
+	}
+
+	public void setCar_year(int car_year) {
+		this.car_year = car_year;
+	}
+
 	@Override
 	public String toString() {
-		return "Car [ ID=" + car_id + ", BRAND=" + car_brand + ", MODEL=" + car_model + ", MILEAGE="
+		return "Car [ ID=" + car_id + ", BRAND=" + car_brand + ",YEAR=" + car_year + ", MODEL=" + car_model + ", MILEAGE="
 				+ car_mile + ", COLOR=" + car_color + ", OWNERS=" + car_owners + ", PRICE=" + car_price
 				+ " ]";
 	}

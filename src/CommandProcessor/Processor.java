@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import Command.AddCarCommand;
 import Command.AddUserCommand;
+import Command.CalcBonusCommand;
 import Command.Command;
 import Command.DeleteUserCommand;
 import Command.DoNothingCommand;
@@ -37,11 +38,11 @@ public class Processor {
 		mCommandsMap.put( "findbrand", new FindCarBrandCommand());
 		mCommandsMap.put( "findmodel", new FindCarModelCommand()); 
 		mCommandsMap.put( "findprice", new FindCarPriceCommand()); // NOT WORKING
-		mCommandsMap.put( "allcars", new ShowAllCarsCommand()); 
+		mCommandsMap.put( "stock", new ShowAllCarsCommand()); 
 		mCommandsMap.put( "maxprice", new FindCarMaxPriceCommand()); 
 		mCommandsMap.put( "addcar", new AddCarCommand()); // ?
-		
-		
+		// sale commands
+		mCommandsMap.put( "calcbonus", new CalcBonusCommand());
 //		mCommandsMap.put( "update", new UpdateCarCommand();
 
 	}

@@ -3,6 +3,7 @@ import java.time.LocalDate;
 
 import Database.Car;
 import Database.CarDataManager;
+import Database.SaleDataManager;
 import View.CommandLine;
 
 public class SellCarIdCommand implements Command {
@@ -11,33 +12,57 @@ public class SellCarIdCommand implements Command {
 	@Override
 	public void execute(String[] args) { // deletes car by id from stock set
 		
-		Car car = new Car();
-		int id = -1;
-		LocalDate date = LocalDate.now(); // Create a date object
-		int price =  0; // change
 
-		if(args.length > 2) {
+		if(args.length > 3) {
 			CommandLine.instance().printError("Too many arguments");
 			return;
 		}
-		if(args.length < 2) {
+		if(args.length < 3) {
 			CommandLine.instance().printError("Not enough arguments were provided");
 			return;
 		}
+		
+		String id = args[1];
+	    boolean numeric = true;
 
-		try {
-			id = Integer.parseInt(args[1]);
+	    try {
+	            Integer num = Integer.parseInt(id);
+	    } catch (NumberFormatException e) {
+	            numeric = false;
+	      }
+
+	    if(!numeric) {
+	            CommandLine.instance().printError("Id needs to be a numeric value");;
+	            return;
+	    }
 		
-			car = CarDataManager.instance().find(id);
-			if (car != null)
-				price = car.getCar_price();
+		String price = args[2];
+	    numeric = true;
+
+	    try {
+	            Integer num = Integer.parseInt(price);
+	    } catch (NumberFormatException e) {
+	            numeric = false;
+	      }
+
+	    if(!numeric) {
+	            CommandLine.instance().printError("Price needs to be a numeric value");;
+	            return;
+	    }
+	    
 		
-			if(CarDataManager.instance().delete(id)) {
-				CommandLine.instance().Print("Car (" + args[1] + ") sold for " + price + " on " + date);
-			}
-			} catch (NumberFormatException e) {
-				CommandLine.instance().printError("Wrong arguments were provided");
-			}
+		Car car = new Car();
+		int idInt = Integer.parseInt(args[1]);
+		LocalDate date = LocalDate.now(); // Create a date object
+
+		car = CarDataManager.instance().getCarById(idInt);
+		if(car == null) {
+			CommandLine.instance().printError("Car [ Id = " + args[1] + " ] is not in stock (check the sales records to see if it has already been sold)");
+			return;
+		}
+		
+		if(SaleDataManager.instance().addsale(car, price, date))
+			CarDataManager.instance().delete(idInt);
+		CommandLine.instance().Print("Car [ Id = " + args[1] + " ] successfully sold for (" + price + ") on " + date);
+     }
 	}
-}
-

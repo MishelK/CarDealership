@@ -196,6 +196,17 @@ public class CarDataManager {
 		
 	}
 	
+	public Car getCarById(int id){
+		if (this.carsData.contains( new Car(id) )) {
+			for (Car car : carsData) {
+				if (car.getCar_id() == id ) {
+					return car;
+				}
+			}
+		}
+		return null;
+	}
+	
 public boolean WriteIdToFile() { 
 		
 		boolean writeIdResult = false;

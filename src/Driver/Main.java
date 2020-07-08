@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import CommandProcessor.Processor;
 import CommandProcessor.Session;
 import Database.CarDataManager;
+import Database.SaleDataManager;
 import Database.UserDataManager;
 
 public class Main {
@@ -21,6 +22,10 @@ public class Main {
 		CarDataManager.instance().readCarIdDataFromFile();
 		CarDataManager.instance().seedDatabase();
 		CarDataManager.instance().showdb();
+		
+		SaleDataManager.instance().readDataFromFile();
+		SaleDataManager.instance().readSaleIdDataFromFile();
+		SaleDataManager.instance().showdb();
 	
 		
 		BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));

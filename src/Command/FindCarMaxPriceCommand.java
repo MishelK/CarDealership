@@ -53,6 +53,6 @@ public class FindCarMaxPriceCommand implements Command {
 	@Override
 	public void help() {
 		// TODO Auto-generated method stub
-		CommandLine.instance().Print("The correct use is: findmaxprice maxprice");
+		CommandLine.instance().printError("The correct use is: findmaxprice maxprice");
 	}
 }

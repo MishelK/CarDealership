@@ -50,7 +50,7 @@ public class FindCarBrandCommand implements Command {
 	@Override
 	public void help() {
 		// TODO Auto-generated method stub
-		CommandLine.instance().Print("The correct use is: findbrand brand");
+		CommandLine.instance().printError("The correct use is: findbrand brand");
 	}
 }
 		

@@ -47,6 +47,6 @@ public class DeleteUserCommand implements Command {
 	@Override
 	public void help() {
 		// TODO Auto-generated method stub
-		CommandLine.instance().Print("The correct use is: deleteuser username password");
+		CommandLine.instance().printError("The correct use is: deleteuser username password");
 	}
 }

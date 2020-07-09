@@ -37,6 +37,6 @@ public class FindCarIdCommand implements Command {
 	@Override
 	public void help() {
 		// TODO Auto-generated method stub
-		CommandLine.instance().Print("The correct use is: findid id");
+		CommandLine.instance().printError("The correct use is: findid id");
 	}
 }

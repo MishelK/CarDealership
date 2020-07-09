@@ -64,6 +64,6 @@ public class AddCarCommand implements Command {
 
 	@Override
 	public void help() {
-		CommandLine.instance().Print("The correct use is: addcar brand model year mileage color owners price");
+		CommandLine.instance().printError("The correct use is: addcar brand model year mileage color owners price");
 	}
 }

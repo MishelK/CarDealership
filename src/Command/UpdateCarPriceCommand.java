@@ -45,7 +45,7 @@ public class UpdateCarPriceCommand implements Command{
 	@Override
 	public void help() {
 		// TODO Auto-generated method stub
-		CommandLine.instance().Print("The correct use is: updateprice id newprice");
+		CommandLine.instance().printError("The correct use is: updateprice id newprice");
 	}
 	
 

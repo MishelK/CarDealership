@@ -72,6 +72,6 @@ public class SellCarIdCommand implements Command {
 	@Override
 	public void help() {
 		// TODO Auto-generated method stub
-		CommandLine.instance().Print("The correct use is: sellcar id price");
+		CommandLine.instance().printError("The correct use is: sell id price");
 	}
 	}

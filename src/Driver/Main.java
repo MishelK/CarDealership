@@ -29,6 +29,7 @@ public class Main {
 		//SaleDataManager.instance().salesReport();
 	
 		CommandLine.instance().Print("Welcome to Dealership Plus, Please login to the system");
+		CommandLine.instance().Print("Having trouble log? type 'help'");
 		
 		BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
 		Processor processor = new Processor();

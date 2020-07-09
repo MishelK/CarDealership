@@ -7,7 +7,7 @@ import View.CommandLine;
 public class RemoveCarFromStock implements Command{
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		if(Session.instance().isAdmin()) {
 		
@@ -16,12 +16,12 @@ public class RemoveCarFromStock implements Command{
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
 			help();
-			return;
+			return false;
 		}
 		if(args.length < 2) {
 			CommandLine.instance().printError("Not enough arguments were provided");
 			help();
-			return;
+			return false;
 		}
 		
 		try {
@@ -30,16 +30,21 @@ public class RemoveCarFromStock implements Command{
 		    if(CarDataManager.instance().delete(id)) {
 		    	CommandLine.instance().Print("Car ID " + id + " has been removed from stock");
 		    }
-		    else
+		    else {
 		    	CommandLine.instance().printError("Car ID " + id + " is not in stock");
+		    	return false;
+		    }
 		} catch (NumberFormatException e) {
 			CommandLine.instance().printError("Wrong arguments were provided");
+			return false;
 		}
 		
 	}
 		else {
 			CommandLine.instance().printError("Only managers can use this command");
+			return false;
 		}
+		return true;
 	}
 
 	@Override

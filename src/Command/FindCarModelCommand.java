@@ -12,19 +12,19 @@ import View.CommandLine;
 public class FindCarModelCommand implements Command {
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		Set<Car> carsSorted = new HashSet<Car>();
 	
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
 			help();
-			return;
+			return false;
 		}
 		if(args.length < 2) {
 			CommandLine.instance().printError("Not enough arguments were provided");
 			help();
-			return;
+			return false;
 		}
 		carsSorted = CarDataManager.instance().find_model(args[1]);
 		
@@ -39,8 +39,11 @@ public class FindCarModelCommand implements Command {
 				CommandLine.instance().Print(car.toString());
 			}
 		}
-		else
+		else {
 			CommandLine.instance().printError("No cars found");
+			return false;
+		}
+		return true;
 	}
 
 	@Override

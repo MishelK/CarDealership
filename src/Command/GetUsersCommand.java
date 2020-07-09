@@ -8,13 +8,13 @@ import View.CommandLine;
 public class GetUsersCommand implements Command {
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		if(Session.instance().isAdmin()) {
 		
 		if(args.length > 1) {
 			CommandLine.instance().printError("No arguments are needed for getUsers");
-			return;
+			return false;
 		}
 		
 		UserDataManager.instance().printUsers();
@@ -22,7 +22,9 @@ public class GetUsersCommand implements Command {
 	}
 		else {
 			CommandLine.instance().printError("Only managers can use this command");
+			return false;
 		}
+		return true;
 	}
 
 	@Override

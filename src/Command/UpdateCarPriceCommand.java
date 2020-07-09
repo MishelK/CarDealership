@@ -8,7 +8,7 @@ import View.CommandLine;
 public class UpdateCarPriceCommand implements Command{
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		if(Session.instance().isAdmin()) {
 		
@@ -17,11 +17,11 @@ public class UpdateCarPriceCommand implements Command{
 		
 		if(args.length > 3) {
 			CommandLine.instance().printError("Too many arguments");
-			return;
+			return false;
 		}
 		if(args.length < 3) {
 			CommandLine.instance().printError("Not enough arguments were provided");
-			return;
+			return false;
 		}
 		
 		try {
@@ -33,13 +33,15 @@ public class UpdateCarPriceCommand implements Command{
 		    }
 		} catch (NumberFormatException e) {
 			CommandLine.instance().printError("Wrong arguments were provided");
+			return false;
 		}
 		
 	}
 		else {
 			CommandLine.instance().printError("Only managers can use this command");
+			return false;
 		}
-	
+		return true;
 	}
 
 	@Override

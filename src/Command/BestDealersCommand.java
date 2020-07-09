@@ -7,18 +7,18 @@ import View.CommandLine;
 public class BestDealersCommand implements Command {
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		if(Session.instance().isAdmin()) {
 		
 		if(args.length > 1) {
 			CommandLine.instance().printError("No arguments are needed for bestDealers");
-			return;
+			return false;
 		}
 		
 		if(SaleDataManager.instance().isEmpty()) {
 			CommandLine.instance().printError("There have been no sales");
-			return;
+			return true;
 		}
 		
 		SaleDataManager.instance().bestDealers();
@@ -26,8 +26,9 @@ public class BestDealersCommand implements Command {
 	}
 		else {
 			CommandLine.instance().printError("Only managers can use this command");
+			return false;
 		}
-
+		return true;
 	}
 
 	@Override

@@ -7,24 +7,24 @@ import View.CommandLine;
 public class LoginCommand implements Command {
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		
 		if(args.length > 3) {
 			CommandLine.instance().printError("Too many arguments");
 			help();
-			return;
+			return false;
 		}
 		if(args.length < 3) {
 			CommandLine.instance().printError("Not enough arguments were provided");
 			help();
-			return;
+			return false;
 		}
 		
 		// in case logged-in user trying to login
 		if(Session.instance().isLoggedIn()) {
 			CommandLine.instance().printError("Please logout first");
-			return;
+			return false;
 		}
 		
 		if(UserDataManager.instance().login(args[1], args[2])) {
@@ -33,9 +33,11 @@ public class LoginCommand implements Command {
 			CommandLine.instance().Print("Type 'help' to get the list of commands");
 			
 		}
-		else 
+		else {
 			CommandLine.instance().printError("Wrong username or password");
-
+			return false;
+		}
+		return true;
 	}
 
 	@Override

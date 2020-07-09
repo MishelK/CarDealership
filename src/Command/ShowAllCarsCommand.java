@@ -12,13 +12,13 @@ import View.CommandLine;
 public class ShowAllCarsCommand implements Command {
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 	
 		Set<Car> allcars = new HashSet<Car>(); 
 		
 		if(args.length > 1) {
 			CommandLine.instance().printError("No arguments are needed for 'stock'");
-			return;
+			return false;
 		}
 		allcars = CarDataManager.instance().findall(); // gets full list of cars
 		
@@ -32,8 +32,11 @@ public class ShowAllCarsCommand implements Command {
 				CommandLine.instance().Print(car.toString());
 			}
 		}
-		else
+		else {
 			CommandLine.instance().printError("No cars found");
+			return false;
+		}
+		return true;
 	}
 
 	@Override

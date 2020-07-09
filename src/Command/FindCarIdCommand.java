@@ -7,7 +7,7 @@ import View.CommandLine;
 public class FindCarIdCommand implements Command {
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		int id = -1;
 		Car car = null;
@@ -15,12 +15,12 @@ public class FindCarIdCommand implements Command {
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
 			help();
-			return;
+			return false;
 		}
 		if(args.length < 2) {
 			CommandLine.instance().printError("Not enough arguments were provided");
 			help();
-			return;
+			return false;
 		}
 		
 		try {
@@ -31,7 +31,9 @@ public class FindCarIdCommand implements Command {
 		    }
 		} catch (NumberFormatException e) {
 			CommandLine.instance().printError("Wrong arguments were provided");
+			return false;
 		}
+		return true;
 	}
 
 	@Override

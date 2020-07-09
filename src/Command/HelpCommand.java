@@ -6,12 +6,12 @@ import View.CommandLine;
 public class HelpCommand implements Command {
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 
 		if(!Session.instance().isLoggedIn()) {
 			CommandLine.instance().Print("To log in please type 'login' followed up with your username and password");
 			CommandLine.instance().Print("In case this is your first time using Dealership Plus, please contact our support to get the root manager account" );
-			return;
+			return true;
 		}
 		
 		else
@@ -25,6 +25,7 @@ public class HelpCommand implements Command {
 		else { // prints basic commands
 			printBaseCmds();
 		}	
+		return true;
 	}
 	
 	public void printInfo() {

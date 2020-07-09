@@ -5,10 +5,10 @@ import View.CommandLine;
 public class NotFoundCommand implements Command{
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		CommandLine.instance().printError("Command not found");
-		
+		return true;
 	}
 
 	@Override

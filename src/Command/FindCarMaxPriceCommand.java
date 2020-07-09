@@ -15,7 +15,7 @@ import View.CommandLine;
 public class FindCarMaxPriceCommand implements Command {
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		int max_price = -1;
 		Set<Car> priceCars = new HashSet<Car>(); 
@@ -23,12 +23,12 @@ public class FindCarMaxPriceCommand implements Command {
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
 			help();
-			return;
+			return false;
 		}
 		if(args.length < 2) {
 			CommandLine.instance().printError("Not enough arguments were provided");
 			help();
-			return;
+			return false;
 		}
 		
 		try {
@@ -42,12 +42,14 @@ public class FindCarMaxPriceCommand implements Command {
 					CommandLine.instance().Print(car.toString());
 				}
 			}
-			else
+			else {
 				CommandLine.instance().printError("No cars found");
+				return false;
+			}
 		} catch (NumberFormatException e) {
 			CommandLine.instance().printError("Wrong arguments were provided");
 		}
-
+		return true;
 	}
 
 	@Override

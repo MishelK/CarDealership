@@ -13,7 +13,7 @@ import View.CommandLine;
 public class FindCarBrandCommand implements Command {
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		
 		
 		Set<Car> carsSorted = new HashSet<Car>();
@@ -21,12 +21,12 @@ public class FindCarBrandCommand implements Command {
 		if(args.length > 2) {
 			CommandLine.instance().printError("Too many arguments");
 			help();
-			return;
+			return false;
 		}
 		if(args.length < 2) {
 			CommandLine.instance().printError("Not enough arguments were provided");
 			help();
-			return;
+			return false;
 		}
 		
 		String brand = args[1];
@@ -43,8 +43,11 @@ public class FindCarBrandCommand implements Command {
 				CommandLine.instance().Print(car.toString());
 			}
 		}
-		else
+		else {
 			CommandLine.instance().printError("No cars found");
+			return false;
+		}
+		return true;
 	}
 
 	@Override

@@ -116,7 +116,7 @@ public class CarDataManager {
 		Set<Car> priceCar = new HashSet<Car>();
 		
 		for (Car car : carsData) {
-			if (car.getCar_price() < price)
+			if (car.getCar_price() <= price)
 				priceCar.add(car);
 		}
 		

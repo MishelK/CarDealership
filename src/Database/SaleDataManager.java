@@ -60,6 +60,7 @@ public class SaleDataManager {
 	}
 	
 	
+	
 	@SuppressWarnings("unchecked") // for casting
 	public Set<Sale> readDataFromFile() {
 		

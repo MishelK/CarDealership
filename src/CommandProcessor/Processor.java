@@ -43,7 +43,6 @@ public class Processor {
 		mCommandsMap.put( "logout", new LogoutCommand()); //base
 		mCommandsMap.put( "users", new GetUsersCommand()); //manager
 		// car commands
-		mCommandsMap.put( "sell", new SellCarIdCommand()); //base
 		mCommandsMap.put( "findid", new FindCarIdCommand()); //base
 		mCommandsMap.put( "findbrand", new FindCarBrandCommand()); //base
 		mCommandsMap.put( "findmodel", new FindCarModelCommand());  //base
@@ -57,6 +56,7 @@ public class Processor {
 		mCommandsMap.put( "bestselling", new BestSellingCommand()); //manager
 	    mCommandsMap.put( "bestdealers", new BestDealersCommand()); //manager
 		mCommandsMap.put( "sales", new SalesLogCommand()); //base
+		mCommandsMap.put( "sell", new SellCarIdCommand()); //base
 
 
 	}

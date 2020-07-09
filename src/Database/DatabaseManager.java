@@ -10,7 +10,7 @@ public class DatabaseManager {
 		
 		CarDataManager.instance().readDataFromFile();
 		CarDataManager.instance().readCarIdDataFromFile();
-		CarDataManager.instance().seedDatabase();
+		//CarDataManager.instance().seedDatabase();
 
 		
 		SaleDataManager.instance().readDataFromFile();

@@ -17,10 +17,12 @@ public class UpdateCarPriceCommand implements Command{
 		
 		if(args.length > 3) {
 			CommandLine.instance().printError("Too many arguments");
+			help();
 			return false;
 		}
 		if(args.length < 3) {
 			CommandLine.instance().printError("Not enough arguments were provided");
+			help();
 			return false;
 		}
 		

@@ -176,7 +176,9 @@ public class CarDataManager {
 		
 		return carArr;
 	}
-	
+	public int getNumOfCars() {
+		return carsData.size();
+	}
 	
 	// SAVE to file
 	public boolean WriteToFile() { 
@@ -269,7 +271,10 @@ public boolean WriteIdToFile() {
 		return writeIdResult;
 	}
 	
-	
+	public Set<Car> getCarsData(){
+		return this.carsData;
+	}
+
 	public void seedDatabase() {
 		Car testcar = new Car();
 		Car testcar2 = new Car();

@@ -25,6 +25,8 @@ public class FindCarIdCommand implements Command {
 		
 		try {
 			id = Integer.parseInt(args[1]);
+			if(id<0)
+				return false;
 		    car = CarDataManager.instance().find(id);
 		    if(car != null) {
 		    	CommandLine.instance().Print(car.toString());

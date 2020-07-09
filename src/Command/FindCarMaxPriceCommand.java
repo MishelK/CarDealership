@@ -48,6 +48,7 @@ public class FindCarMaxPriceCommand implements Command {
 			}
 		} catch (NumberFormatException e) {
 			CommandLine.instance().printError("Wrong arguments were provided");
+			return false;
 		}
 		return true;
 	}

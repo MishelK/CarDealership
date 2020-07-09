@@ -89,6 +89,9 @@ public class UserDataManager {
 	
 	public boolean delete(String username, String password) {
 		
+		if(username.equals("root"))
+			return false;
+		
 		if(!usersData.contains(new User(username,password,0)))
 			return false;
 	

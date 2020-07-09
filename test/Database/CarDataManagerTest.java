@@ -60,19 +60,19 @@ public class CarDataManagerTest {
 		String[] line3 = {"addcar","mazda","3","should","be","false","inthe","end"};
 		assertFalse("added car with wrong parameters", cmd.execute(line3));
 		
-		// logging out of manager
-		LogoutCommand cmd2 = new LogoutCommand(); 
-        String[] line4 = {"logout"};
-        assertTrue("failed to log out", cmd2.execute(line4));
-
-        // logging into dealer
-        LoginCommand cmd3 = new LoginCommand();
-        String[] line5 = {"login","w","w"};
-        assertTrue("failed to login", cmd3.execute(line5));
-		
-        // add car as a non-administrator
-     	String[] line6 = {"addcar","mazda","3","2015","200","green","3","1999"};
-     	assertFalse("not admin added a car", cmd.execute(line6));
+//		// logging out of manager
+//		LogoutCommand cmd2 = new LogoutCommand(); 
+//        String[] line4 = {"logout"};
+//        assertTrue("failed to log out", cmd2.execute(line4));
+//
+//        // logging into dealer
+//        LoginCommand cmd3 = new LoginCommand();
+//        String[] line5 = {"login","w","w"};
+//        assertTrue("failed to login", cmd3.execute(line5));
+//		
+//        // add car as a non-administrator
+//     	String[] line6 = {"addcar","mazda","3","2015","200","green","3","1999"};
+//     	assertFalse("not admin added a car", cmd.execute(line6));
 	}
 
 	@Test
@@ -268,5 +268,42 @@ public class CarDataManagerTest {
 		assertFalse("sold car with wrong args", cmd.execute(line4));
 	}
 	
-	
+	@Test
+	public void testNoAdminAccess() {
+		
+		UpdateCarPriceCommand prc = new UpdateCarPriceCommand();
+		RemoveCarFromStock rmv = new RemoveCarFromStock();
+		AddCarCommand add = new AddCarCommand();
+		
+		
+		Set<Car> carsData = CarDataManager.instance().getCarsData();
+		Car[] arr = new Car[carsData.size()];
+		carsData.toArray(arr);
+		
+		int id = arr[0].getCar_id();
+		int price = arr[0].getCar_price();
+		
+		LogoutCommand cmd1 = new LogoutCommand();//logging out of manager
+        String[] line = {"logout"};
+        assertTrue("failed to log out", cmd1.execute(line));
+
+        LoginCommand cmd2 = new LoginCommand();//logging into dealer
+        String[] line2 = {"login","w","w"};
+        assertTrue("failed to login", cmd2.execute(line2));
+        
+        
+		// update price normally
+		String[] line3 = {"updateprice",Integer.toString(id),Integer.toString(price+99)};
+		assertFalse("failed to update price", prc.execute(line3));
+        
+		
+		// remove car normally
+		String[] line4 = {"removecar",Integer.toString(id)};
+		assertFalse("failed to remove car", rmv.execute(line4));
+        
+		
+        // add car as a non-administrator
+     	String[] line6 = {"addcar","mazda","3","2015","200","green","3","1999"};
+     	assertFalse("not admin added a car", add.execute(line6));
+	}
 }

@@ -101,8 +101,17 @@ public class SaleDataManager {
 			
 		});
 	
+		LocalDate today = LocalDate.now();
+		
 		for(int i = 0; i < salesData.size(); i++) {
-			CommandLine.instance().Print(salesArr[i].toString());
+			boolean sale = false;
+			
+			if(salesArr[i].getSale_date().getMonth() == today.getMonth() && salesArr[i].getSale_date().getYear() == today.getYear()) {
+				CommandLine.instance().Print(salesArr[i].toString());
+				sale = true;
+			}
+			if(!sale)
+				CommandLine.instance().printError("There were no sales so far this month");
 		}
 	}
     
@@ -176,10 +185,11 @@ public class SaleDataManager {
     	int bonus = 0;
     	Sale[] saleArr = new Sale[salesData.size()];
     	salesData.toArray(saleArr);
-    	
+    	LocalDate today = LocalDate.now();
     	for(int i = 0; i < salesData.size(); i++) {
     		if(saleArr[i].getSeller_username().equals(username))
-    			bonus += Integer.parseInt(saleArr[i].getSale_price()) * BONUS_PERCENTAGE; // adds 5% of every sale the username has made
+    			if(saleArr[i].getSale_date().getMonth() == today.getMonth() && saleArr[i].getSale_date().getYear() == today.getYear())
+    				bonus += Integer.parseInt(saleArr[i].getSale_price()) * BONUS_PERCENTAGE; // adds 5% of every sale the username has made
     		
     	}
     	

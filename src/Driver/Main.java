@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import CommandProcessor.Processor;
 import CommandProcessor.Session;
 import Database.CarDataManager;
+import Database.DatabaseManager;
 import Database.SaleDataManager;
 import Database.UserDataManager;
 import View.CommandLine;
@@ -15,21 +16,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		UserDataManager.instance().readDataFromFile();
-		UserDataManager.instance().seedDatabase();
-		//UserDataManager.instance().showdb();
-		
-		CarDataManager.instance().readDataFromFile();
-		CarDataManager.instance().readCarIdDataFromFile();
-		CarDataManager.instance().seedDatabase();
-		//CarDataManager.instance().showdb();
-		
-		SaleDataManager.instance().readDataFromFile();
-		SaleDataManager.instance().readSaleIdDataFromFile();
-		//SaleDataManager.instance().salesReport();
+		DatabaseManager db = new DatabaseManager();
+		db.loadDatabase();
 	
 		CommandLine.instance().Print("Welcome to Dealership Plus, Please login to the system");
-		CommandLine.instance().Print("Having trouble log? type 'help'");
+		CommandLine.instance().Print("Having trouble logging into your account? type 'help'");
 		
 		BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
 		Processor processor = new Processor();
